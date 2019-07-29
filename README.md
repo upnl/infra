@@ -6,5 +6,5 @@ UPnL 서버 인프라
 terraform init
 
 # IAM 시크릿 확인하기
-terraform output encrypted_access_key_secret
+terraform console <<< 'local.encrypted_access_key'
 ```

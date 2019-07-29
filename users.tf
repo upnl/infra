@@ -43,8 +43,8 @@ resource "aws_iam_access_key" "sysadmins" {
   pgp_key = "keybase:${local.sysadmins[count.index][2]}"
 }
 
-output "encrypted_access_key_secret" {
-  value = {
+locals {
+  encrypted_access_key = {
     for key in aws_iam_access_key.sysadmins :
     key.user => {
       id               = key.id,
