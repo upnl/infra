@@ -27,8 +27,11 @@ resource "aws_iam_access_key" "keys" {
 }
 
 output "encrypted_access_key_secret" {
-  value = zipmap(
-    local.users[*][1],
-    aws_iam_access_key.keys[*].encrypted_secret
-  )
+  value = {
+    for key in aws_iam_access_key.keys :
+    key.user => {
+      id               = key.id,
+      encrypted_secret = key.encrypted_secret
+    }
+  }
 }
