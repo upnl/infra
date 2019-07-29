@@ -1,0 +1,5 @@
+# Terraform providers
+/.terraform
+
+# Terraform state and backup files
+/terraform.tfstate*
