@@ -8,11 +8,16 @@ locals {
   ]
 }
 
+resource "aws_iam_group" "sysadmins" {
+  name = "sysadmins"
+  path = "/sysadmins/"
+}
+
 resource "aws_iam_user" "sysadmins" {
   count = length(local.sysadmins)
 
   name = local.sysadmins[count.index][0]
-  path = "/sysadmin/"
+  path = "/sysadmins/"
 
   tags = {
     Name = local.sysadmins[count.index][1]
