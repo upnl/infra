@@ -24,10 +24,17 @@ resource "aws_iam_user" "sysadmins" {
   }
 }
 
+resource "aws_iam_user_group_membership" "sysadmins" {
+  count = length(local.sysadmins)
+
+  user   = aws_iam_user.sysadmins[count.index].name
+  groups = [aws_iam_group.sysadmins.name]
+}
+
 resource "aws_iam_access_key" "sysadmins" {
   count = length(local.sysadmins)
 
-  user    = local.sysadmins[count.index][0]
+  user    = aws_iam_user.sysadmins[count.index].name
   pgp_key = "keybase:${local.sysadmins[count.index][2]}"
 }
 
