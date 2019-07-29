@@ -13,6 +13,11 @@ resource "aws_iam_group" "sysadmins" {
   path = "/sysadmins/"
 }
 
+resource "aws_iam_group_policy_attachment" "sysadmins" {
+  group      = aws_iam_group.sysadmins.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
 resource "aws_iam_user" "sysadmins" {
   count = length(local.sysadmins)
 
