@@ -52,3 +52,8 @@ output "encrypted_access_key_secret" {
     }
   }
 }
+
+resource "aws_iam_account_password_policy" "sane_default" {
+  minimum_password_length        = 16
+  allow_users_to_change_password = true
+}
