@@ -1,8 +1,8 @@
 UPnL 서버 인프라
 ========
 
-```
-# Requires terraform 0.12.x
+```bash
+# Requires terraform 0.12.6
 terraform init
 
 # IAM 시크릿 확인하기
