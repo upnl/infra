@@ -39,6 +39,16 @@ resource "aws_security_group_rule" "gemini_public_ports" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
+resource "aws_security_group_rule" "gemini_egress" {
+  security_group_id = aws_security_group.gemini.id
+
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
 resource "aws_key_pair" "sysadmin" {
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDOJe/gR386HUgk9cUOo39Ch0gipzcXlGWht3E8WUjxh"
 }
