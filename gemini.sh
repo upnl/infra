@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail; IFS=$'\n\t'
 
+# Enable verbose mode
+set -x
+
 #
 # 안쓰는 패키지 삭제, 자주 쓰이는 패키지 기본으로 설치
 #
@@ -23,3 +26,15 @@ else
 fi
 
 systemctl reload sshd
+
+#
+# sudo 로 /usr/local/{bin,sbin} 안에 있는 커맨드를 실행할 수 있도록 설정
+#
+cat <<'EOF' > /etc/sudoers.d/10-sudo-path
+Defaults secure_path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+EOF
+
+#
+# k3s 설치
+#
+curl -sfL https://get.k3s.io | sh -
