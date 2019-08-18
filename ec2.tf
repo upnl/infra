@@ -64,4 +64,6 @@ resource "aws_instance" "gemini" {
     volume_size           = 32
     delete_on_termination = false
   }
+
+  user_data = file("${path.module}/change_ssh_port.sh")
 }
