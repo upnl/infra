@@ -1,5 +1,5 @@
 locals {
-  public_ports = [80, 443, 22, 2222]
+  public_ports = ["80", "443", "22", "2222"]
 }
 
 data "aws_ami" "amazon_linux_2" {
@@ -28,15 +28,16 @@ resource "aws_security_group" "gemini" {
 }
 
 resource "aws_security_group_rule" "gemini_public_ports" {
-  count = length(local.public_ports)
+  for_each = toset(local.public_ports)
 
   security_group_id = aws_security_group.gemini.id
 
-  type        = "ingress"
-  from_port   = local.public_ports[count.index]
-  to_port     = local.public_ports[count.index]
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type             = "ingress"
+  from_port        = tonumber(each.value)
+  to_port          = tonumber(each.value)
+  protocol         = "tcp"
+  cidr_blocks      = ["0.0.0.0/0"]
+  ipv6_cidr_blocks = ["::/0"]
 }
 
 resource "aws_security_group_rule" "gemini_egress" {
