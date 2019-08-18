@@ -1,3 +1,13 @@
+#
+# 루트계정 관련 설정
+#
+resource "aws_iam_account_alias" "alias" {
+  account_alias = "upnl"
+}
+
+#
+# 유피넬 회원들 계정 정보
+#
 locals {
   sysadmins = [
     # AWS IAM username, 이름, keybase ID
