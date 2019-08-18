@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "gemini_egress" {
 }
 
 resource "aws_key_pair" "sysadmin" {
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDCb5aPHLwBWdriec8UADgXJuwqEABFPMHe2wCJiLSOJpIJuzigLWtdJns7hEPdk5FUEyuxsTd3VRgp97Axu8OG461rew0zTnWBBYHwsmwx9A+4T9TVynfTi5IBzy3tXaVwFJ1SxmdJvAe/s6Yk8qEM9eMcNMYYWao48wo0t/7tNpRHTR6VU4nYUDBM0SK6C8fmykslQXvmeaKRhMRAcE46Y01gkdc/0uD4rJlmr3nuAe2/DWqUPF49hE7dR35MTgjT1kxfiRN3sli3AqGbXAZS0GSu9ntCg6iAsPV0D8PJVb8Jc25M5/LFp6mKqQ5rhnfTvK7nd/+daMNb61z42/AnRydNRd6jUeofLAR0KDKNyNRuhilprkoOG2PIOvR5HW5PPLoT+R/SiReDWLqFAUF8ATvFDaUjyEDBkQwedByHnudAk/5zbPjo2tmJn6Csjih3mexnL9e3kHYsuMZHTSF+FFNc32MWTggb6a4YY6d7SLJUc0IEbtPiYMWFOXe4SGc="
+  public_key = file("${path.module}/sysadmin_ssh_rsa.pub")
 }
 
 resource "aws_instance" "gemini" {
