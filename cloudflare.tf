@@ -62,7 +62,7 @@ resource "cloudflare_record" "gemini_sub" {
   domain = local.domain
   name   = "gemini.upnl.org"
   type   = "A"
-  value  = aws_instance.gemini.public_ip
+  value  = aws_eip.gemini.public_ip
 }
 
 #

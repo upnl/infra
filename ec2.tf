@@ -67,3 +67,8 @@ resource "aws_instance" "gemini" {
 
   user_data = file("${path.module}/gemini.sh")
 }
+
+resource "aws_eip" "gemini" {
+  instance = aws_instance.gemini.id
+  vpc      = true
+}
