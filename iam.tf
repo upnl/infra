@@ -53,7 +53,7 @@ resource "aws_iam_user" "sysadmins" {
   }
 }
 
-resource "aws_iam_user_login_profile" "example" {
+resource "aws_iam_user_login_profile" "sysadmins" {
   for_each = local.sysadmins
 
   user    = each.key
