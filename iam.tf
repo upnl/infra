@@ -9,13 +9,27 @@ resource "aws_iam_account_alias" "alias" {
 # 유피넬 회원들 계정 정보
 #
 locals {
-  sysadmins = [
-    # AWS IAM username, 이름, keybase ID
-    ["integraldx", "넬장", "integraldx"],
-    ["simnalamburt", "김지현", "simnalamburt"],
-    ["tirr", "최원우", "vbchunguk"],
-    ["pbzweihander", "이강욱", "pbzweihander"],
-  ]
+  sysadmins = {
+    integraldx = {
+      name       = "넬장"
+      keybase_id = "integraldx"
+    }
+
+    simnalamburt = {
+      name       = "김지현"
+      keybase_id = "simnalamburt"
+    }
+
+    tirr = {
+      name       = "최원우"
+      keybase_id = "vbchunguk"
+    }
+
+    pbzweihander = {
+      name       = "이강욱"
+      keybase_id = "pbzweihander"
+    }
+  }
 }
 
 resource "aws_iam_group" "sysadmins" {
@@ -29,28 +43,28 @@ resource "aws_iam_group_policy_attachment" "sysadmins" {
 }
 
 resource "aws_iam_user" "sysadmins" {
-  count = length(local.sysadmins)
+  for_each = local.sysadmins
 
-  name = local.sysadmins[count.index][0]
+  name = each.key
   path = "/sysadmins/"
 
   tags = {
-    Name = local.sysadmins[count.index][1]
+    Name = each.value.name
   }
 }
 
 resource "aws_iam_user_group_membership" "sysadmins" {
-  count = length(local.sysadmins)
+  for_each = local.sysadmins
 
-  user   = aws_iam_user.sysadmins[count.index].name
+  user   = each.key
   groups = [aws_iam_group.sysadmins.name]
 }
 
 resource "aws_iam_access_key" "sysadmins" {
-  count = length(local.sysadmins)
+  for_each = local.sysadmins
 
-  user    = aws_iam_user.sysadmins[count.index].name
-  pgp_key = "keybase:${local.sysadmins[count.index][2]}"
+  user    = each.key
+  pgp_key = "keybase:${each.value.keybase_id}"
 }
 
 locals {
