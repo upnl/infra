@@ -40,7 +40,7 @@ resource "cloudflare_record" "wiki" {
 }
 
 #
-# 제미니
+# 제미니 (구)
 #
 resource "cloudflare_record" "gemini" {
   domain = local.domain
@@ -48,17 +48,21 @@ resource "cloudflare_record" "gemini" {
   type   = "A"
   value  = "121.166.66.24"
 }
-resource "cloudflare_record" "gemini_sub" {
-  domain = local.domain
-  name   = "gemini.upnl.org"
-  type   = "CNAME"
-  value  = "upnl.org"
-}
 resource "cloudflare_record" "wildcard" {
   domain = local.domain
   name   = "*.upnl.org"
   type   = "CNAME"
-  value  = "gemini.upnl.org"
+  value  = local.domain
+}
+
+#
+# 제미니
+#
+resource "cloudflare_record" "gemini_sub" {
+  domain = local.domain
+  name   = "gemini.upnl.org"
+  type   = "A"
+  value  = aws_instance.gemini.public_ip
 }
 
 #
