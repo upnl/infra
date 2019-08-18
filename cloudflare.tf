@@ -44,7 +44,7 @@ resource "cloudflare_record" "wiki" {
 #
 resource "cloudflare_record" "gemini" {
   domain = local.domain
-  name   = "upnl.org"
+  name   = local.domain
   type   = "A"
   value  = "121.166.66.24"
 }
@@ -59,4 +59,38 @@ resource "cloudflare_record" "wildcard" {
   name   = "*.upnl.org"
   type   = "CNAME"
   value  = "gemini.upnl.org"
+}
+
+#
+# mailgun
+#
+resource "cloudflare_record" "mailgun_mx_a" {
+  domain   = local.domain
+  name     = local.domain
+  type     = "MX"
+  value    = "mxa.mailgun.org"
+  priority = 10
+}
+resource "cloudflare_record" "mailgun_mx_b" {
+  domain   = local.domain
+  name     = local.domain
+  type     = "MX"
+  value    = "mxb.mailgun.org"
+  priority = 10
+}
+resource "cloudflare_record" "mailgun_txt" {
+  domain = local.domain
+  name   = local.domain
+  type   = "TXT"
+  value  = "v=spf1 include:mailgun.org ~all"
+}
+
+#
+# keybase
+#
+resource "cloudflare_record" "keybase_proof" {
+  domain = local.domain
+  name   = local.domain
+  type   = "TXT"
+  value  = "keybase-site-verification=RlPMHsWcjog7nc9MyLcMTZQ9otR8W6InTdyu_8SB8Tg"
 }
