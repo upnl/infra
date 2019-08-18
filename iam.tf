@@ -75,11 +75,12 @@ resource "aws_iam_access_key" "sysadmins" {
 }
 
 locals {
-  encrypted_access_key = {
+  iam_secrets = {
     for key in aws_iam_access_key.sysadmins :
     key.user => {
-      id               = key.id,
-      encrypted_secret = key.encrypted_secret
+      aws_access_key_id               = key.id,
+      encrypted_aws_secret_access_key = key.encrypted_secret
+      encrypted_initial_password      = aws_iam_user_login_profile.sysadmins[key.user].encrypted_password
     }
   }
 }
