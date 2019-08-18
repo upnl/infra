@@ -53,6 +53,13 @@ resource "aws_iam_user" "sysadmins" {
   }
 }
 
+resource "aws_iam_user_login_profile" "example" {
+  for_each = local.sysadmins
+
+  user    = each.key
+  pgp_key = "keybase:${each.value.keybase_id}"
+}
+
 resource "aws_iam_user_group_membership" "sysadmins" {
   for_each = local.sysadmins
 
