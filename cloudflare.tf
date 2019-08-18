@@ -60,20 +60,3 @@ resource "cloudflare_record" "wildcard" {
   type   = "CNAME"
   value  = "gemini.upnl.org"
 }
-
-#
-# 유리엘
-# TODO: Remove
-#
-resource "cloudflare_record" "uriel" {
-  domain = local.domain
-  name   = "uriel.upnl.org"
-  type   = "A"
-  value  = "147.46.113.114"
-}
-resource "cloudflare_record" "uriel_wildcard" {
-  domain = local.domain
-  name   = "*.uriel.upnl.org"
-  type   = "CNAME"
-  value  = "uriel.upnl.org"
-}
