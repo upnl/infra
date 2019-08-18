@@ -65,5 +65,5 @@ resource "aws_instance" "gemini" {
     delete_on_termination = false
   }
 
-  user_data = file("${path.module}/change_ssh_port.sh")
+  user_data = file("${path.module}/gemini.sh")
 }
