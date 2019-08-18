@@ -58,7 +58,7 @@ resource "aws_instance" "gemini" {
   ami             = data.aws_ami.amazon_linux_2.id
   instance_type   = "t3a.medium"
   key_name        = aws_key_pair.sysadmin.key_name
-  security_groups = [aws_security_group.gemini.id]
+  security_groups = [aws_security_group.gemini.name]
 
   root_block_device {
     volume_size           = 32
