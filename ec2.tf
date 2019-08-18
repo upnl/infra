@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "gemini_egress" {
 }
 
 resource "aws_key_pair" "sysadmin" {
-  public_key = file("${path.module}/sysadmin_ssh_rsa.pub")
+  public_key = file("${path.module}/upnl_rsa.pub")
 }
 
 resource "aws_instance" "gemini" {
