@@ -72,3 +72,12 @@ resource "aws_eip" "gemini" {
   instance = aws_instance.gemini.id
   vpc      = true
 }
+
+resource "aws_ebs_volume" "gemini-ebs" {
+  availability_zone = aws_instance.gemini.availability_zone
+  size              = 32
+
+  tags = {
+    Name = "Gemini EBS"
+  }
+}
