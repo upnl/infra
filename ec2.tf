@@ -81,3 +81,9 @@ resource "aws_ebs_volume" "gemini-ebs" {
     Name = "Gemini EBS"
   }
 }
+
+resource "aws_volume_attachment" "gemini-ebs-att" {
+  device_name = "/dev/xvdf"
+  volume_id   = aws_ebs_volume.gemini-ebs.id
+  instance_id = aws_instance.gemini.id
+}
