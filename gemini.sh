@@ -5,6 +5,18 @@ set -euo pipefail; IFS=$'\n\t'
 set -x
 
 #
+# cloud-init이 호스트네임을 바꾸지 않도록 함
+#
+cat <<'EOF' > /etc/cloud/cloud.cfg.d/20_preserve_hostname.cfg
+preserve_hostname: true
+EOF
+
+#
+# 호스트네임 설정
+#
+hostnamectl set-hostname gemini
+
+#
 # 안쓰는 패키지 삭제, 자주 쓰이는 패키지 기본으로 설치
 #
 yum autoremove -y postfix rpcbind
