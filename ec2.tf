@@ -61,7 +61,7 @@ resource "aws_instance" "gemini" {
   security_groups = [aws_security_group.gemini.name]
 
   root_block_device {
-    volume_size           = 32
+    volume_size           = 16
     delete_on_termination = false
   }
 
