@@ -12,6 +12,13 @@ preserve_hostname: true
 EOF
 
 #
+# /etc/hosts에 매핑 추가
+#
+cat <<'EOF' >> /etc/hosts
+127.0.0.1 gemini
+EOF
+
+#
 # 호스트네임 설정
 #
 hostnamectl set-hostname gemini
