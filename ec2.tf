@@ -1,6 +1,5 @@
 locals {
-  availability_zone = "ap-northeast-2a"
-  public_ports      = ["80", "443", "22", "2222"]
+  public_ports = ["80", "443", "22", "2222"]
 }
 
 data "aws_ami" "amazon_linux_2" {
@@ -58,7 +57,7 @@ resource "aws_key_pair" "sysadmin" {
 resource "aws_instance" "gemini" {
   ami               = data.aws_ami.amazon_linux_2.id
   instance_type     = "t3a.medium"
-  availability_zone = local.availability_zone
+  availability_zone = "ap-northeast-2a"
   key_name          = aws_key_pair.sysadmin.key_name
   security_groups   = [aws_security_group.gemini.name]
 
