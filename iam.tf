@@ -89,3 +89,89 @@ resource "aws_iam_account_password_policy" "sane_default" {
   minimum_password_length        = 16
   allow_users_to_change_password = true
 }
+
+resource "aws_iam_role" "gemini" {
+  name = "gemini"
+  path = "/instance/"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Principal": {
+      "Service": "ec2.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole"
+  }
+}
+EOF
+}
+
+resource "aws_iam_policy" "access_volume" {
+  description = "Allow accessing EBS volumes"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeVolumes",
+        "ec2:DescribeVpcs",
+        "ec2:CreateVolume",
+        "ec2:ModifyVolume",
+        "ec2:AttachVolume",
+        "ec2:DeleteVolume",
+        "ec2:DetachVolume"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "access_ecr" {
+  description = "Allow accessing ECR"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "gemini_volume" {
+  role = aws_iam_role.gemini.name
+  policy_arn = aws_iam_policy.access_volume.arn
+}
+
+resource "aws_iam_role_policy_attachment" "gemini_ecr" {
+  role = aws_iam_role.gemini.name
+  policy_arn = aws_iam_policy.access_ecr.arn
+}
+
+resource "aws_iam_instance_profile" "gemini" {
+  name = "gemini"
+  role = aws_iam_role.gemini.name
+}

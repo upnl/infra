@@ -60,6 +60,7 @@ resource "aws_instance" "gemini" {
   availability_zone = "ap-northeast-2a"
   key_name          = aws_key_pair.sysadmin.key_name
   security_groups   = [aws_security_group.gemini.name]
+  iam_instance_profile = aws_iam_instance_profile.gemini.name
 
   root_block_device {
     volume_size           = 16
