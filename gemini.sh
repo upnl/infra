@@ -36,7 +36,8 @@ EOF
 #
 # k3s 설치
 #
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io |
+  INSTALL_K3S_EXEC='--kubelet-arg "--cloud-provider=external"' sh -
 
 #
 # 기타 설정
