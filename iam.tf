@@ -110,7 +110,7 @@ EOF
 
 resource "aws_iam_policy" "access_volume" {
   description = "Allow accessing EBS volumes"
-  policy = <<EOF
+  policy      = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -139,7 +139,7 @@ EOF
 
 resource "aws_iam_policy" "access_ecr" {
   description = "Allow accessing ECR"
-  policy = <<EOF
+  policy      = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -162,12 +162,12 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "gemini_volume" {
-  role = aws_iam_role.gemini.name
+  role       = aws_iam_role.gemini.name
   policy_arn = aws_iam_policy.access_volume.arn
 }
 
 resource "aws_iam_role_policy_attachment" "gemini_ecr" {
-  role = aws_iam_role.gemini.name
+  role       = aws_iam_role.gemini.name
   policy_arn = aws_iam_policy.access_ecr.arn
 }
 
