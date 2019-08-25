@@ -39,8 +39,37 @@ EOF
 curl -sfL https://get.k3s.io | sh -
 
 #
-# htop 기본 설정 수정
+# 기타 설정
 #
+sudo -u ec2-user tee /home/ec2-user/README <<'EOF' >/dev/nunll
+k3s 관련 바이너리들
+
+    /usr/local/bin/k3s                k3s 바이너리
+    /usr/local/bin/k3s-killall.sh
+    /usr/local/bin/k3s-uninstall.sh
+
+그 외 커맨드라인 유틸리티들
+
+    /usr/local/bin/kubectl            kubernetes CLI
+    /usr/local/bin/ctr                containerd CLI
+    /usr/local/bin/crictl             CRI 클라이언트
+
+k3s systemd 유닛 파일
+
+    /etc/systemd/system/k3s.service
+    /etc/systemd/system/k3s.service.env
+
+k3s 데이터 위치
+
+    /var/lib/rancher/k3s
+    /etc/rancher/k3s
+
+그 외 인스턴스가 어떻게 세팅되었는지는 아래 repo 참고
+
+    https://github.com/upnl/infra
+EOF
+
+# 초기 htop 상태 설정
 sudo -u ec2-user tee /home/ec2-user/.config/htop <<'EOF' >/dev/nunll
 hide_userland_threads=1
 tree_view=1
