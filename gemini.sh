@@ -5,20 +5,6 @@ set -euo pipefail; IFS=$'\n\t'
 set -x
 
 #
-# Hostname 설정
-#
-cat <<'EOF' > /etc/cloud/cloud.cfg.d/20_preserve_hostname.cfg
-# Hostname을 gemini로 고정하기 위함
-preserve_hostname: true
-EOF
-# /etc/hosts에 매핑 추가
-cat <<'EOF' >> /etc/hosts
-127.0.0.1 gemini
-EOF
-# 호스트네임 설정
-hostnamectl set-hostname gemini
-
-#
 # 안쓰는 패키지 삭제, 자주 쓰이는 패키지 기본으로 설치
 #
 yum autoremove -y postfix rpcbind
