@@ -37,3 +37,11 @@ EOF
 # k3s 설치
 #
 curl -sfL https://get.k3s.io | sh -
+
+#
+# htop 기본 설정 수정
+#
+sudo -u ec2-user tee /home/ec2-user/.config/htop <<'EOF' >/dev/nunll
+hide_userland_threads=1
+tree_view=1
+EOF
