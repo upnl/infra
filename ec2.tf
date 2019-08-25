@@ -61,13 +61,16 @@ resource "aws_instance" "gemini" {
   key_name             = aws_key_pair.sysadmin.key_name
   security_groups      = [aws_security_group.gemini.name]
   iam_instance_profile = aws_iam_instance_profile.gemini.name
+  user_data            = file("${path.module}/gemini.sh")
 
   root_block_device {
     volume_size           = 16
     delete_on_termination = false
   }
 
-  user_data = file("${path.module}/gemini.sh")
+  tags = {
+    Name = "gemini"
+  }
 }
 
 resource "aws_eip" "gemini" {
