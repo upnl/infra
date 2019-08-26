@@ -42,7 +42,7 @@ curl -sfL https://get.k3s.io |
 #
 # 기타 설정
 #
-sudo -u ec2-user tee /home/ec2-user/README <<'EOF' >/dev/nunll
+sudo -u ec2-user tee /home/ec2-user/README <<'EOF' >/dev/null
 k3s 관련 바이너리들
 
     /usr/local/bin/k3s                k3s 바이너리
@@ -71,7 +71,7 @@ k3s 데이터 위치
 EOF
 
 # 초기 htop 상태 설정
-sudo -u ec2-user tee /home/ec2-user/.config/htop <<'EOF' >/dev/nunll
+sudo -u ec2-user tee /home/ec2-user/.config/htop <<'EOF' >/dev/null
 hide_userland_threads=1
 tree_view=1
 EOF
