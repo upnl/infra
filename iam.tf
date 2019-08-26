@@ -210,24 +210,6 @@ resource "aws_iam_policy" "kubernetes_node" {
 EOF
 }
 
-resource "aws_iam_policy" "kubernetes_others" {
-  description = "기타 필요한 권한들"
-  policy      = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeAccountAttributes"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
-
 resource "aws_iam_role_policy_attachment" "kubernetes_master" {
   role       = aws_iam_role.gemini.name
   policy_arn = aws_iam_policy.kubernetes_master.arn
@@ -236,11 +218,6 @@ resource "aws_iam_role_policy_attachment" "kubernetes_master" {
 resource "aws_iam_role_policy_attachment" "kubernetes_node" {
   role       = aws_iam_role.gemini.name
   policy_arn = aws_iam_policy.kubernetes_node.arn
-}
-
-resource "aws_iam_role_policy_attachment" "kubernetes_others" {
-  role       = aws_iam_role.gemini.name
-  policy_arn = aws_iam_policy.kubernetes_others.arn
 }
 
 resource "aws_iam_instance_profile" "gemini" {
