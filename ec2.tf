@@ -55,7 +55,10 @@ resource "aws_key_pair" "sysadmin" {
 }
 
 resource "aws_instance" "gemini" {
-  ami                  = data.aws_ami.amazon_linux_2.id
+  # 인스턴스가 재생성되는걸 막기 위해 필요해질때까지는 AMI 고정함
+  # ami = data.aws_ami.amazon_linux_2.id
+  ami = "ami-095ca789e0549777d"
+
   instance_type        = "t3a.medium"
   availability_zone    = "ap-northeast-2a"
   key_name             = aws_key_pair.sysadmin.key_name
