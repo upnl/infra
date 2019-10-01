@@ -1,5 +1,8 @@
-UPnL 서버 인프라
+UPnL Infra 
 ========
+[![Terraform Badge]][Terraform Cloud Link]
+
+유피넬의 AWS와 클라우드 플레어 인프라 상태가 정의되어있는 테라폼 코드입니다.
 
 ### Prerequisites
 - Terraform 0.12.6+
@@ -24,4 +27,6 @@ terraform console <<< local.iam_secrets
 terraform console <<< local.iam_secrets.simnalamburt
 ```
 
+[Terraform Badge]: https://badgen.net/badge/icon/terraform?label&icon=https://cdn.jsdelivr.net/gh/simnalamburt/badgen-icons@2b2fc88/icons/terraform.svg
+[Terraform Cloud Link]: https://app.terraform.io/app/upnl/workspaces/infra
 [Terraform Cloud]: https://app.terraform.io
