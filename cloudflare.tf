@@ -46,7 +46,7 @@ resource "cloudflare_record" "gemini" {
   domain = local.domain
   name   = local.domain
   type   = "A"
-  value  = "121.166.66.24"
+  value  = "121.140.51.227"
 }
 resource "cloudflare_record" "wildcard" {
   domain = local.domain
