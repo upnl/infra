@@ -71,7 +71,8 @@ k3s 관련 파일들 위치
 EOF
 
 # 초기 htop 상태 설정
-sudo -u ec2-user tee /home/ec2-user/.config/htop <<'EOF' >/dev/null
+sudo -u ec2-user mkdir -p /home/ec2-user/.config/htop
+sudo -u ec2-user tee /home/ec2-user/.config/htop/htoprc <<'EOF' >/dev/null
 hide_userland_threads=1
 tree_view=1
 EOF
