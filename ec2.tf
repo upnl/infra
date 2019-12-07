@@ -82,33 +82,3 @@ resource "aws_eip" "gemini" {
   instance = aws_instance.gemini.id
   vpc      = true
 }
-
-locals {
-  gemini_ebs_volumes = {
-    "upnl.org upload"   = { size = 10, device_name = "/dev/sdf" },
-    "upnl.org postgres" = { size = 1, device_name = "/dev/sdg" },
-    "gitlab"            = { size = 20, device_name = "/dev/sdh" },
-    "pokemon sqlite"    = { size = 1, device_name = "/dev/sdi" },
-    "helix upload"      = { size = 1, device_name = "/dev/sdj" },
-    "helix postgres"    = { size = 1, device_name = "/dev/sdk" },
-  }
-}
-
-resource "aws_ebs_volume" "gemini_ebs" {
-  for_each = local.gemini_ebs_volumes
-
-  availability_zone = aws_instance.gemini.availability_zone
-  size              = each.value.size
-
-  tags = {
-    Name = each.key
-  }
-}
-
-resource "aws_volume_attachment" "gemini_ebs_att" {
-  for_each = local.gemini_ebs_volumes
-
-  device_name = each.value.device_name
-  volume_id   = aws_ebs_volume.gemini_ebs[each.key].id
-  instance_id = aws_instance.gemini.id
-}
