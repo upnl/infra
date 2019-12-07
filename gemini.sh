@@ -36,13 +36,7 @@ EOF
 #
 # k3s 설치
 #
-curl -sfL https://get.k3s.io |
-  INSTALL_K3S_EXEC='--kubelet-arg cloud-provider external' sh -
-
-# Cloud Controller Manager용 kubeconfig 파일 생성
-LOCAL_IPV4=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-sed "s|^\(    server: https://\)localhost\(:6443\)$|\1${LOCAL_IPV4}\2|" \
-  /etc/rancher/k3s/k3s.yaml > /etc/rancher/k3s/cloud-controller-manager.yaml
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION='v1.0.0' sh -
 
 #
 # 기타 설정
