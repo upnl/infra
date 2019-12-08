@@ -36,7 +36,11 @@ EOF
 #
 # k3s 설치
 #
-curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION='v1.0.0' sh -
+curl -sfL https://get.k3s.io |
+  INSTALL_K3S_VERSION='v1.0.0' \
+  INSTALL_K3S_EXEC='server --disable-cloud-controller' \
+  sh
+# Reference: https://rancher.com/docs/k3s/latest/en/installation/install-options
 
 #
 # 기타 설정
