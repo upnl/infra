@@ -38,9 +38,14 @@ EOF
 #
 curl -sfL https://get.k3s.io |
   INSTALL_K3S_VERSION='v1.0.0' \
-  INSTALL_K3S_EXEC='server --disable-cloud-controller' \
-  sh
+  sh -s -- server \
+    --write-kubeconfig-mode 644 \
+    --disable-cloud-controller \
+    --kubelet-arg cloud-provider=external
 # Reference: https://rancher.com/docs/k3s/latest/en/installation/install-options
+
+# Enable kubectl autocompletion
+kubectl completion bash >/etc/bash_completion.d/kubectl
 
 #
 # 기타 설정
@@ -83,5 +88,6 @@ EOF
 
 # 'sudo k3s kubectl' alias
 sudo -u ec2-user tee -a /home/ec2-user/.bashrc <<'EOF' >/dev/null
-alias k='sudo k3s kubectl'
+alias k=kubectl
+complete -F __start_kubectl k
 EOF
