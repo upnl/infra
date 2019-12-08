@@ -76,3 +76,8 @@ sudo -u ec2-user tee /home/ec2-user/.config/htop/htoprc <<'EOF' >/dev/null
 hide_userland_threads=1
 tree_view=1
 EOF
+
+# 'sudo k3s kubectl' alias
+sudo -u ec2-user tee -a /home/ec2-user/.bashrc <<'EOF' >/dev/null
+alias k='sudo k3s kubectl'
+EOF
