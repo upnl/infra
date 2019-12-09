@@ -28,8 +28,6 @@ terraform console <<< local.iam_secrets.simnalamburt
 ```
 
 ### TODOs
-- [ ] [cert-manager](https://cert-manager.io) 써서 Traefik Ingress에 HTTPS 지원
-      붙이기. 방법은 https://kubernetes.io/docs/concepts/services-networking/ingress/#tls 참고
 - [ ] 개발과정에서 릭난 EBS랑 모두 치우기
 - [ ] k3s DB 백업만으로 클러스터 복구가 가능한지 확인하기
 - [ ] [aws-iam-authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) 쓰기
