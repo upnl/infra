@@ -9,7 +9,7 @@ UPnL Infra
 - [Terraform Cloud] 계정
 - AWS 크레덴셜
 - [Cloudflare Global API Key](https://dash.cloudflare.com/profile/api-tokens)
-  (`CLOUDFLARE_EMAIL`, `CLOUDFLARE_TOKEN`)
+  (`CLOUDFLARE_EMAIL`, `CLOUDFLARE_API_KEY`)
 
 ### Instructions
 ```bash

@@ -16,6 +16,6 @@ provider "aws" {
 }
 
 provider "cloudflare" {
-  version = ">= 1.17.1, <2"
-  org_id  = "5438816c5f1953ae97aa91863ba3d596"
+  version    = ">= 2.2.0, <3"
+  account_id = "5438816c5f1953ae97aa91863ba3d596"
 }
