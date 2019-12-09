@@ -3,12 +3,11 @@ locals {
 }
 
 data "aws_ami" "amazon_linux_2" {
-  most_recent = true
-  owners      = ["137112412989"] # amazon
+  owners = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-2.*-x86_64-gp2"]
+    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"]
   }
 
   filter {
@@ -20,6 +19,19 @@ data "aws_ami" "amazon_linux_2" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "ena-support"
+    values = ["true"]
+  }
+
+  # 인스턴스가 매번 재생성되는걸 막기 위해 고정함
+  name_regex = "^amzn2-ami-hvm-2.0.20191116.0-x86_64-gp2$"
 }
 
 resource "aws_security_group" "gemini" {
@@ -55,9 +67,7 @@ resource "aws_key_pair" "sysadmin" {
 }
 
 resource "aws_instance" "gemini" {
-  # 인스턴스가 재생성되는걸 막기 위해 필요해질때까지는 AMI 고정함
-  # ami = data.aws_ami.amazon_linux_2.id
-  ami = "ami-095ca789e0549777d"
+  ami = data.aws_ami.amazon_linux_2.id
 
   instance_type        = "t3a.medium"
   availability_zone    = "ap-northeast-2a"
