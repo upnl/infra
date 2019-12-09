@@ -80,7 +80,6 @@ k3s 관련 파일들 위치
 
     /var/lib/rancher/k3s                            k3s가 동적으로 생성한 데이터들
     /etc/rancher/k3s/k3s.yaml                       kubeconfig 파일
-    /etc/rancher/k3s/cloud-controller-manager.yaml  Cloud Controller Manager용 kubeconfig
 
 그 외 인스턴스가 어떻게 세팅되었는지는 아래 repo 참고
 
