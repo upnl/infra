@@ -64,7 +64,7 @@ resource "aws_security_group_rule" "gemini_egress" {
 }
 
 resource "aws_key_pair" "sysadmin" {
-  public_key = file("${path.module}/upnl_rsa.pub")
+  public_key = file("res/upnl_rsa.pub")
 }
 
 resource "aws_instance" "gemini" {
@@ -75,7 +75,7 @@ resource "aws_instance" "gemini" {
   key_name             = aws_key_pair.sysadmin.key_name
   security_groups      = [aws_security_group.gemini.name]
   iam_instance_profile = aws_iam_instance_profile.gemini.name
-  user_data            = file("${path.module}/gemini.sh")
+  user_data            = file("res/gemini.sh")
 
   root_block_device {
     volume_size           = 16
