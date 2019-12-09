@@ -82,7 +82,11 @@ EOF
 # 초기 htop 상태 설정
 sudo -u ec2-user mkdir -p /home/ec2-user/.config/htop
 sudo -u ec2-user tee /home/ec2-user/.config/htop/htoprc <<'EOF' >/dev/null
+header_margin=1
+hide_kernel_threads=1
 hide_userland_threads=1
+highlight_base_name=1
+highlight_megabytes=1
 tree_view=1
 EOF
 
