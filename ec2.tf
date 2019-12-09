@@ -71,7 +71,6 @@ resource "aws_instance" "gemini" {
   ami = data.aws_ami.amazon_linux_2.id
 
   instance_type        = "t3a.medium"
-  availability_zone    = "ap-northeast-2a"
   key_name             = aws_key_pair.sysadmin.key_name
   security_groups      = [aws_security_group.gemini.name]
   iam_instance_profile = aws_iam_instance_profile.gemini.name
