@@ -40,8 +40,6 @@ EOF
 EXEC='server'
 # Required to allow non-root users to use kubectl command
 EXEC="$EXEC --write-kubeconfig-mode 644"
-# Required to use non-default Cloud Controller Manager
-EXEC="$EXEC --disable-cloud-controller --kubelet-arg cloud-provider=external"
 # Required to use AWS EBS CSI Driver
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/v0.4.0/docs/README.md#prerequisites
 EXEC="$EXEC --kube-apiserver-arg feature-gates=VolumeSnapshotDataSource=true"

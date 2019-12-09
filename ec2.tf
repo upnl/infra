@@ -83,8 +83,6 @@ resource "aws_instance" "gemini" {
 
   tags = {
     Name = "gemini"
-
-    "kubernetes.io/cluster/gemini" = "owned"
   }
 }
 
