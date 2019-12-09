@@ -100,6 +100,17 @@ resource "aws_iam_role" "gemini" {
   assume_role_policy = data.aws_iam_policy_document.gemini_assume_role.json
 }
 
+resource "aws_iam_instance_profile" "gemini" {
+  name = "gemini"
+  role = aws_iam_role.gemini.name
+}
+
+resource "aws_iam_role_policy" "gemini" {
+  name   = "kubernetes"
+  policy = data.aws_iam_policy_document.gemini.json
+  role   = aws_iam_role.gemini.name
+}
+
 data "aws_iam_policy_document" "gemini_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -110,20 +121,8 @@ data "aws_iam_policy_document" "gemini_assume_role" {
   }
 }
 
-resource "aws_iam_instance_profile" "gemini" {
-  name = "gemini"
-  role = aws_iam_role.gemini.name
-}
-
-#
-# IAM Policy for AWS Cloud Controller Manager
-#
-resource "aws_iam_policy" "kubernetes_master" {
-  description = "쿠버네티스 마스터에 필요한 권한들"
-  policy      = data.aws_iam_policy_document.kubernetes_master.json
-}
-
-data "aws_iam_policy_document" "kubernetes_master" {
+data "aws_iam_policy_document" "gemini" {
+  # Policy required to master nodes for Cloud Controller Manager
   statement {
     actions = [
       # https://github.com/kubernetes/cloud-provider-aws/blob/8a0b2ca/README.md#iam-policy
@@ -184,19 +183,8 @@ data "aws_iam_policy_document" "kubernetes_master" {
     ]
     resources = ["*"]
   }
-}
 
-resource "aws_iam_role_policy_attachment" "kubernetes_master" {
-  role       = aws_iam_role.gemini.name
-  policy_arn = aws_iam_policy.kubernetes_master.arn
-}
-
-resource "aws_iam_policy" "kubernetes_node" {
-  description = "쿠버네티스 노드에 필요한 권한들"
-  policy      = data.aws_iam_policy_document.kubernetes_node.json
-}
-
-data "aws_iam_policy_document" "kubernetes_node" {
+  # Policy required to worker nodes for Cloud Controller Manager
   statement {
     actions = [
       # https://github.com/kubernetes/cloud-provider-aws/blob/8a0b2ca/README.md#iam-policy
@@ -212,9 +200,24 @@ data "aws_iam_policy_document" "kubernetes_node" {
     ]
     resources = ["*"]
   }
-}
 
-resource "aws_iam_role_policy_attachment" "kubernetes_node" {
-  role       = aws_iam_role.gemini.name
-  policy_arn = aws_iam_policy.kubernetes_node.arn
+  # Policy required to worker nodes for AWS EBS CSI Driver
+  statement {
+    actions = [
+      # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/v0.4.0/docs/example-iam-policy.json
+      "ec2:AttachVolume",
+      "ec2:CreateSnapshot",
+      "ec2:CreateTags",
+      "ec2:CreateVolume",
+      "ec2:DeleteSnapshot",
+      "ec2:DeleteTags",
+      "ec2:DeleteVolume",
+      "ec2:DescribeInstances",
+      "ec2:DescribeSnapshots",
+      "ec2:DescribeTags",
+      "ec2:DescribeVolumes",
+      "ec2:DetachVolume",
+    ]
+    resources = ["*"]
+  }
 }
