@@ -40,22 +40,6 @@ resource "cloudflare_record" "wiki" {
 }
 
 #
-# 제미니 (구)
-#
-resource "cloudflare_record" "gemini" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = local.domain
-  type    = "A"
-  value   = "121.140.51.227"
-}
-resource "cloudflare_record" "wildcard" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "*"
-  type    = "CNAME"
-  value   = local.domain
-}
-
-#
 # 제미니
 #
 resource "cloudflare_record" "gemini_sub" {
@@ -64,11 +48,23 @@ resource "cloudflare_record" "gemini_sub" {
   type    = "A"
   value   = aws_eip.gemini.public_ip
 }
+resource "cloudflare_record" "gemini" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = local.domain
+  type    = "CNAME"
+  value   = cloudflare_record.gemini_sub.name
+}
+resource "cloudflare_record" "wildcard" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "*"
+  type    = "CNAME"
+  value   = local.domain
+}
 resource "cloudflare_record" "pokemon_db" {
   zone_id = cloudflare_zone.upnl.id
   name    = "pokemon"
   type    = "CNAME"
-  value   = "gemini.upnl.org"
+  value   = cloudflare_record.gemini_sub.name
 }
 
 #
