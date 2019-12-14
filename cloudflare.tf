@@ -40,6 +40,22 @@ resource "cloudflare_record" "wiki" {
 }
 
 #
+# 제미니(구)
+#
+resource "cloudflare_record" "helix" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "helix"
+  type    = "A"
+  value   = "121.140.51.227"
+}
+resource "cloudflare_record" "gitlab" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "git"
+  type    = "A"
+  value   = "121.140.51.227"
+}
+
+#
 # 제미니
 #
 resource "cloudflare_record" "gemini_sub" {
