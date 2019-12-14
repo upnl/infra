@@ -64,6 +64,12 @@ resource "cloudflare_record" "gemini_sub" {
   type    = "A"
   value   = aws_eip.gemini.public_ip
 }
+resource "cloudflare_record" "gemini_sub_wildcard" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "*.gemini"
+  type    = "CNAME"
+  value   = "gemini.upnl.org"
+}
 
 #
 # mailgun
