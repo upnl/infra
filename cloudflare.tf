@@ -64,6 +64,7 @@ resource "cloudflare_record" "gemini_sub" {
   type    = "A"
   value   = aws_eip.gemini.public_ip
 }
+# TODO: Remove me!
 resource "cloudflare_record" "gemini_sub_wildcard" {
   zone_id = cloudflare_zone.upnl.id
   name    = "*.gemini"
