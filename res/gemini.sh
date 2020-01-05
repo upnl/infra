@@ -45,7 +45,7 @@ EXEC="$EXEC --write-kubeconfig-mode 644"
 EXEC="$EXEC --kube-apiserver-arg feature-gates=VolumeSnapshotDataSource=true"
 
 curl -sfL https://get.k3s.io |
-  INSTALL_K3S_VERSION='v1.0.0' \
+  INSTALL_K3S_VERSION='v1.0.1' \
   INSTALL_K3S_EXEC="$EXEC" \
   sh
 # https://rancher.com/docs/k3s/latest/en/installation/install-options
