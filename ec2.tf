@@ -84,6 +84,15 @@ resource "aws_instance" "gemini" {
   tags = {
     Name = "gemini"
   }
+
+  # User data 수정이 인스턴스 재부팅하는것 막기
+  #
+  # TODO: 향후엔 AWS EFS로 k3s DB파일을 백업해서, 인스턴스가 재부팅되거나
+  # 롤링업데이트 되어도 손쉽게 쿠버 상태를 복구할 수 있도록 하자. 그러면 이렇게
+  # ignore_changes를 걸 필요가 없다.
+  lifecycle {
+    ignore_changes = [user_data]
+  }
 }
 
 resource "aws_eip" "gemini" {
