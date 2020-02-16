@@ -52,17 +52,11 @@ resource "cloudflare_record" "gitlab" {
 #
 # 제미니
 #
-resource "cloudflare_record" "gemini_sub" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "gemini.upnl.org"
-  type    = "A"
-  value   = aws_eip.gemini.public_ip
-}
 resource "cloudflare_record" "gemini" {
   zone_id = cloudflare_zone.upnl.id
   name    = local.domain
-  type    = "CNAME"
-  value   = cloudflare_record.gemini_sub.name
+  type    = "A"
+  value   = aws_eip.gemini.public_ip
 }
 resource "cloudflare_record" "wildcard" {
   zone_id = cloudflare_zone.upnl.id
@@ -74,13 +68,13 @@ resource "cloudflare_record" "pokemon_db" {
   zone_id = cloudflare_zone.upnl.id
   name    = "pokemon"
   type    = "CNAME"
-  value   = cloudflare_record.gemini_sub.name
+  value   = local.domain
 }
 resource "cloudflare_record" "helix" {
   zone_id = cloudflare_zone.upnl.id
   name    = "helix"
   type    = "CNAME"
-  value   = cloudflare_record.gemini_sub.name
+  value   = local.domain
 }
 
 #
