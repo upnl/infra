@@ -92,3 +92,6 @@ sudo -u ec2-user tee -a /home/ec2-user/.bashrc <<'EOF' >/dev/null
 alias k=kubectl
 complete -F __start_kubectl k
 EOF
+
+# 서비스 용 ebs 지점 마운트
+sudo -u ec2-user mount /dev/sdc /srv

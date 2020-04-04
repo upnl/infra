@@ -67,6 +67,17 @@ resource "aws_key_pair" "sysadmin" {
   public_key = file("res/upnl_rsa.pub")
 }
 
+resource "aws_ebs_volume" "ebs_data" {
+  availability_zone = "ap-northeast-2"
+  size = 256
+}
+
+resource "aws_volume_attachment" "data_ebs_attach" {
+  device_name = "/dev/sdc"
+  volume_id   = "${aws_ebs_volume.ebs_data.id}"
+  instance_id = "${aws_instance.gemini.id}"
+}
+
 resource "aws_instance" "gemini" {
   ami = data.aws_ami.amazon_linux_2.id
 
@@ -82,7 +93,7 @@ resource "aws_instance" "gemini" {
   }
 
   tags = {
-    Name = "gemini"
+    Name = "ebony"
   }
 
   # User data 수정이 인스턴스 재부팅하는것 막기
