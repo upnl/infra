@@ -11,7 +11,7 @@ resource "aws_iam_account_alias" "alias" {
 locals {
   sysadmins = {
     integraldx = {
-      name       = "넬장"
+      name       = "전민혁"
       keybase_id = "integraldx"
     }
 
