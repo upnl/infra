@@ -34,15 +34,15 @@ data "aws_ami" "amazon_linux_2" {
   name_regex = "^amzn2-ami-hvm-2.0.20191116.0-x86_64-gp2$"
 }
 
-resource "aws_security_group" "gemini" {
+resource "aws_security_group" "ebony" {
   name        = "gemini"
   description = "SG for Gemini"
 }
 
-resource "aws_security_group_rule" "gemini_public_ports" {
+resource "aws_security_group_rule" "ebony_public_ports" {
   for_each = toset(local.public_ports)
 
-  security_group_id = aws_security_group.gemini.id
+  security_group_id = aws_security_group.ebony.id
 
   type             = "ingress"
   from_port        = tonumber(each.value)
@@ -52,8 +52,8 @@ resource "aws_security_group_rule" "gemini_public_ports" {
   ipv6_cidr_blocks = ["::/0"]
 }
 
-resource "aws_security_group_rule" "gemini_egress" {
-  security_group_id = aws_security_group.gemini.id
+resource "aws_security_group_rule" "ebony_egress" {
+  security_group_id = aws_security_group.ebony.id
 
   type             = "egress"
   from_port        = 0
@@ -67,13 +67,24 @@ resource "aws_key_pair" "sysadmin" {
   public_key = file("res/upnl_rsa.pub")
 }
 
-resource "aws_instance" "gemini" {
+resource "aws_ebs_volume" "ebs_data" {
+  availability_zone = aws_instance.ebony.availability_zone
+  size = 256
+}
+
+resource "aws_volume_attachment" "data_ebs_attach" {
+  device_name = "/dev/sdc"
+  volume_id   = aws_ebs_volume.ebs_data.id
+  instance_id = aws_instance.ebony.id
+}
+
+resource "aws_instance" "ebony" {
   ami = data.aws_ami.amazon_linux_2.id
 
   instance_type        = "t3a.medium"
   key_name             = aws_key_pair.sysadmin.key_name
-  security_groups      = [aws_security_group.gemini.name]
-  iam_instance_profile = aws_iam_instance_profile.gemini.name
+  security_groups      = [aws_security_group.ebony.name]
+  iam_instance_profile = aws_iam_instance_profile.ebony.name
   user_data            = file("res/gemini.sh")
 
   root_block_device {
@@ -82,7 +93,7 @@ resource "aws_instance" "gemini" {
   }
 
   tags = {
-    Name = "gemini"
+    Name = "ebony"
   }
 
   # User data 수정이 인스턴스 재부팅하는것 막기
@@ -95,7 +106,7 @@ resource "aws_instance" "gemini" {
   }
 }
 
-resource "aws_eip" "gemini" {
-  instance = aws_instance.gemini.id
+resource "aws_eip" "ebony" {
+  instance = aws_instance.ebony.id
   vpc      = true
 }

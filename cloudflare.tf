@@ -50,13 +50,13 @@ resource "cloudflare_record" "gitlab" {
 }
 
 #
-# 제미니
+# 에보니
 #
-resource "cloudflare_record" "gemini" {
+resource "cloudflare_record" "ebony" {
   zone_id = cloudflare_zone.upnl.id
   name    = local.domain
   type    = "A"
-  value   = aws_eip.gemini.public_ip
+  value   = aws_eip.ebony.public_ip
 }
 resource "cloudflare_record" "wildcard" {
   zone_id = cloudflare_zone.upnl.id
@@ -73,6 +73,12 @@ resource "cloudflare_record" "pokemon_db" {
 resource "cloudflare_record" "helix" {
   zone_id = cloudflare_zone.upnl.id
   name    = "helix"
+  type    = "CNAME"
+  value   = local.domain
+}
+resource "cloudflare_record" "newgit" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "newgit"
   type    = "CNAME"
   value   = local.domain
 }

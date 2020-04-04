@@ -33,6 +33,9 @@ cat <<'EOF' > /etc/sudoers.d/10-sudo-path
 Defaults secure_path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 EOF
 
+# 서비스 용 ebs 지점 마운트
+sudo -u ec2-user mount /dev/sdc /srv
+
 #
 # k3s 설치
 #

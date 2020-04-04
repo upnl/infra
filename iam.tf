@@ -11,7 +11,7 @@ resource "aws_iam_account_alias" "alias" {
 locals {
   sysadmins = {
     integraldx = {
-      name       = "넬장"
+      name       = "전민혁"
       keybase_id = "integraldx"
     }
 
@@ -91,27 +91,27 @@ resource "aws_iam_account_password_policy" "sane_default" {
 }
 
 #
-# IAM Role and Instance Profile for "gemini"
+# IAM Role and Instance Profile for "ebony"
 #
-resource "aws_iam_role" "gemini" {
+resource "aws_iam_role" "ebony" {
   name = "gemini"
   path = "/instance/"
 
-  assume_role_policy = data.aws_iam_policy_document.gemini_assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.ebony_assume_role.json
 }
 
-resource "aws_iam_instance_profile" "gemini" {
+resource "aws_iam_instance_profile" "ebony" {
   name = "gemini"
-  role = aws_iam_role.gemini.name
+  role = aws_iam_role.ebony.name
 }
 
-resource "aws_iam_role_policy" "gemini" {
+resource "aws_iam_role_policy" "ebony" {
   name   = "kubernetes"
-  policy = data.aws_iam_policy_document.gemini.json
-  role   = aws_iam_role.gemini.name
+  policy = data.aws_iam_policy_document.ebony.json
+  role   = aws_iam_role.ebony.name
 }
 
-data "aws_iam_policy_document" "gemini_assume_role" {
+data "aws_iam_policy_document" "ebony_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
     principals {
@@ -121,7 +121,7 @@ data "aws_iam_policy_document" "gemini_assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "gemini" {
+data "aws_iam_policy_document" "ebony" {
   # Policy required to worker nodes for AWS EBS CSI Driver
   statement {
     actions = [
