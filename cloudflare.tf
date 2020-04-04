@@ -76,6 +76,12 @@ resource "cloudflare_record" "helix" {
   type    = "CNAME"
   value   = local.domain
 }
+resource "cloudflare_record" "newgit" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "newgit"
+  type    = "CNAME"
+  value   = local.domain
+}
 
 #
 # mailgun
