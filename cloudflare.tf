@@ -42,9 +42,9 @@ resource "cloudflare_record" "wiki" {
 #
 # 제미니(구)
 #
-resource "cloudflare_record" "gitlab" {
+resource "cloudflare_record" "oldgit" {
   zone_id = cloudflare_zone.upnl.id
-  name    = "git"
+  name    = "oldgit"
   type    = "A"
   value   = "121.140.51.227"
 }
@@ -76,9 +76,9 @@ resource "cloudflare_record" "helix" {
   type    = "CNAME"
   value   = local.domain
 }
-resource "cloudflare_record" "newgit" {
+resource "cloudflare_record" "git" {
   zone_id = cloudflare_zone.upnl.id
-  name    = "newgit"
+  name    = "git"
   type    = "CNAME"
   value   = local.domain
 }
