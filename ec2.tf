@@ -81,7 +81,7 @@ resource "aws_volume_attachment" "data_ebs_attach" {
 resource "aws_instance" "ebony" {
   ami = data.aws_ami.amazon_linux_2.id
 
-  instance_type        = "t3a.medium"
+  instance_type        = "t3a.large"
   key_name             = aws_key_pair.sysadmin.key_name
   security_groups      = [aws_security_group.ebony.name]
   iam_instance_profile = aws_iam_instance_profile.ebony.name
