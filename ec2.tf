@@ -35,8 +35,8 @@ data "aws_ami" "amazon_linux_2" {
 }
 
 resource "aws_security_group" "ebony" {
-  name        = "gemini"
-  description = "SG for Gemini"
+  name        = "ebony"
+  description = "SG for Ebony server"
 }
 
 resource "aws_security_group_rule" "ebony_public_ports" {
