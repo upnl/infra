@@ -105,6 +105,12 @@ resource "aws_iam_instance_profile" "ebony" {
   role = aws_iam_role.ebony.name
 }
 
+resource "aws_iam_role_policy" "ebony_s3_upnl_backups" {
+  name   = "s3-upnl-backups"
+  policy = data.aws_iam_policy_document.s3_upnl_backups.json
+  role   = aws_iam_role.ebony.name
+}
+
 data "aws_iam_policy_document" "ebony_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -112,5 +118,24 @@ data "aws_iam_policy_document" "ebony_assume_role" {
       type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
     }
+  }
+}
+
+data "aws_iam_policy_document" "s3_upnl_backups" {
+  # Policy required to worker nodes for perform homepage backups
+  statement {
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = [aws_s3_bucket.backups.arn]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:DeleteObject",
+    ]
+    resources = ["${aws_s3_bucket.backups.arn}/*"]
   }
 }
