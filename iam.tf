@@ -94,14 +94,14 @@ resource "aws_iam_account_password_policy" "sane_default" {
 # IAM Role and Instance Profile for "ebony"
 #
 resource "aws_iam_role" "ebony" {
-  name = "gemini"
+  name = "ebony"
   path = "/instance/"
 
   assume_role_policy = data.aws_iam_policy_document.ebony_assume_role.json
 }
 
 resource "aws_iam_instance_profile" "ebony" {
-  name = "gemini"
+  name = "ebony"
   role = aws_iam_role.ebony.name
 }
 
