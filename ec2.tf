@@ -85,7 +85,7 @@ resource "aws_instance" "ebony" {
   key_name             = aws_key_pair.sysadmin.key_name
   security_groups      = [aws_security_group.ebony.name]
   iam_instance_profile = aws_iam_instance_profile.ebony.name
-  user_data            = file("res/gemini.sh")
+  user_data            = file("res/ebony.sh")
 
   root_block_device {
     volume_size           = 16
