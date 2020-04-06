@@ -81,11 +81,12 @@ resource "aws_volume_attachment" "data_ebs_attach" {
 resource "aws_instance" "ebony" {
   ami = data.aws_ami.amazon_linux_2.id
 
-  instance_type          = "t3a.large"
-  key_name               = aws_key_pair.sysadmin.key_name
-  vpc_security_group_ids = [aws_security_group.ebony.id]
-  iam_instance_profile   = aws_iam_instance_profile.ebony.name
-  user_data              = file("res/ebony.sh")
+  instance_type           = "t3a.large"
+  key_name                = aws_key_pair.sysadmin.key_name
+  vpc_security_group_ids  = [aws_security_group.ebony.id]
+  iam_instance_profile    = aws_iam_instance_profile.ebony.name
+  user_data               = file("res/ebony.sh")
+  disable_api_termination = true
 
   root_block_device {
     volume_size           = 16
