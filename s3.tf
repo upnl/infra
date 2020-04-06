@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "backups" {
   bucket = "upnl-backups"
 
-  ## 자동 백업이 세팅되면 아래와 같은 방식으로 Lifecycle Rule을 만들어줍시다
+  # TODO: 자동 백업이 세팅되면 아래와 같은 방식으로 Lifecycle Rule을 만들어줍시다
   #lifecycle_rule {
   #  enabled = true
   #  id      = "Transition UPnL Homepage backups to Glacier Deep Archive after 14 days"
