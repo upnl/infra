@@ -69,7 +69,7 @@ resource "aws_key_pair" "sysadmin" {
 
 resource "aws_ebs_volume" "ebs_data" {
   availability_zone = aws_instance.ebony.availability_zone
-  size = 256
+  size              = 256
 }
 
 resource "aws_volume_attachment" "data_ebs_attach" {
