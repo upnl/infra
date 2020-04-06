@@ -105,12 +105,6 @@ resource "aws_iam_instance_profile" "ebony" {
   role = aws_iam_role.ebony.name
 }
 
-resource "aws_iam_role_policy" "ebony" {
-  name   = "kubernetes"
-  policy = data.aws_iam_policy_document.ebony.json
-  role   = aws_iam_role.ebony.name
-}
-
 data "aws_iam_policy_document" "ebony_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -118,27 +112,5 @@ data "aws_iam_policy_document" "ebony_assume_role" {
       type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
     }
-  }
-}
-
-data "aws_iam_policy_document" "ebony" {
-  # Policy required to worker nodes for AWS EBS CSI Driver
-  statement {
-    actions = [
-      # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/v0.4.0/docs/example-iam-policy.json
-      "ec2:AttachVolume",
-      "ec2:CreateSnapshot",
-      "ec2:CreateTags",
-      "ec2:CreateVolume",
-      "ec2:DeleteSnapshot",
-      "ec2:DeleteTags",
-      "ec2:DeleteVolume",
-      "ec2:DescribeInstances",
-      "ec2:DescribeSnapshots",
-      "ec2:DescribeTags",
-      "ec2:DescribeVolumes",
-      "ec2:DetachVolume",
-    ]
-    resources = ["*"]
   }
 }
