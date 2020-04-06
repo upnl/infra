@@ -40,16 +40,6 @@ resource "cloudflare_record" "wiki" {
 }
 
 #
-# 제미니(구)
-#
-resource "cloudflare_record" "oldgit" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "oldgit"
-  type    = "A"
-  value   = "121.140.51.227"
-}
-
-#
 # 에보니
 #
 resource "cloudflare_record" "ebony" {
