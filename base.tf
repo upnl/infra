@@ -1,5 +1,15 @@
 terraform {
-  required_version = ">=0.12.6, <0.13"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = ">= 3.22.0, <4"
+    }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = ">= 2.14.0, <3"
+    }
+  }
+  required_version = ">= 0.14.2, <0.15"
 
   backend "remote" {
     organization = "upnl"
@@ -11,11 +21,9 @@ terraform {
 }
 
 provider "aws" {
-  version = ">= 2.41.0, <3"
   region  = "ap-northeast-2"
 }
 
 provider "cloudflare" {
-  version    = ">= 2.2.0, <3"
   account_id = "5438816c5f1953ae97aa91863ba3d596"
 }
