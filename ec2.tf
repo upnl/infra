@@ -89,7 +89,7 @@ resource "aws_instance" "ebony" {
   disable_api_termination = true
 
   root_block_device {
-    volume_size           = 16
+    volume_size           = 32
     delete_on_termination = false
   }
 
