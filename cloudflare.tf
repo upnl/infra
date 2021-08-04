@@ -14,7 +14,37 @@ resource "cloudflare_record" "edhelbroy" {
   zone_id = cloudflare_zone.upnl.id
   name    = "edhelbroy"
   type    = "A"
-  value   = "147.46.242.115"
+  value   = "147.46.241.87"
+}
+resource "cloudflare_record" "homepage" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = local.domain
+  type    = "CNAME"
+  value   = cloudflare_record.edhelbroy.hostname
+}
+resource "cloudflare_record" "wildcard" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "*"
+  type    = "CNAME"
+  value   = cloudflare_record.edhelbroy.hostname
+}
+resource "cloudflare_record" "pokemon_db" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "pokemon"
+  type    = "CNAME"
+  value   = cloudflare_record.edhelbroy.hostname
+}
+resource "cloudflare_record" "helix" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "helix"
+  type    = "CNAME"
+  value   = cloudflare_record.edhelbroy.hostname
+}
+resource "cloudflare_record" "git" {
+  zone_id = cloudflare_zone.upnl.id
+  name    = "git"
+  type    = "CNAME"
+  value   = cloudflare_record.edhelbroy.hostname
 }
 
 #
@@ -30,13 +60,13 @@ resource "cloudflare_record" "sodrak_wildcard" {
   zone_id = cloudflare_zone.upnl.id
   name    = "*.sodrak"
   type    = "CNAME"
-  value   = "sodrak.upnl.org"
+  value   = cloudflare_record.sodrak.hostname
 }
 resource "cloudflare_record" "wiki" {
   zone_id = cloudflare_zone.upnl.id
   name    = "wiki"
   type    = "CNAME"
-  value   = "sodrak.upnl.org"
+  value   = cloudflare_record.sodrak.hostname
 }
 
 #
@@ -44,33 +74,9 @@ resource "cloudflare_record" "wiki" {
 #
 resource "cloudflare_record" "ebony" {
   zone_id = cloudflare_zone.upnl.id
-  name    = local.domain
+  name    = "ebony"
   type    = "A"
   value   = aws_eip.ebony.public_ip
-}
-resource "cloudflare_record" "wildcard" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "*"
-  type    = "CNAME"
-  value   = local.domain
-}
-resource "cloudflare_record" "pokemon_db" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "pokemon"
-  type    = "CNAME"
-  value   = local.domain
-}
-resource "cloudflare_record" "helix" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "helix"
-  type    = "CNAME"
-  value   = local.domain
-}
-resource "cloudflare_record" "git" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "git"
-  type    = "CNAME"
-  value   = local.domain
 }
 
 #

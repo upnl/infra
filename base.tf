@@ -9,7 +9,7 @@ terraform {
       version = ">= 2.14.0, <3"
     }
   }
-  required_version = ">= 0.14.2, <0.15"
+  required_version = ">= 0.14.2"
 
   backend "remote" {
     organization = "upnl"
@@ -21,9 +21,10 @@ terraform {
 }
 
 provider "aws" {
-  region  = "ap-northeast-2"
+  region    = "ap-northeast-2"
 }
 
 provider "cloudflare" {
   account_id = "5438816c5f1953ae97aa91863ba3d596"
+  api_token = var.cloudflare_api_token
 }
