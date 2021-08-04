@@ -68,46 +68,6 @@ resource "aws_key_pair" "sysadmin" {
 }
 
 resource "aws_ebs_volume" "ebs_data" {
-  availability_zone = aws_instance.ebony.availability_zone
+  availability_zone = "ap-northeast-2c"
   size              = 256
-}
-
-resource "aws_volume_attachment" "data_ebs_attach" {
-  device_name = "/dev/sdc"
-  volume_id   = aws_ebs_volume.ebs_data.id
-  instance_id = aws_instance.ebony.id
-}
-
-resource "aws_instance" "ebony" {
-  ami = data.aws_ami.amazon_linux_2.id
-
-  instance_type           = "t3a.large"
-  key_name                = aws_key_pair.sysadmin.key_name
-  vpc_security_group_ids  = [aws_security_group.ebony.id]
-  iam_instance_profile    = aws_iam_instance_profile.ebony.name
-  user_data               = file("res/ebony.sh")
-  disable_api_termination = true
-
-  root_block_device {
-    volume_size           = 32
-    delete_on_termination = false
-  }
-
-  tags = {
-    Name = "ebony"
-  }
-
-  # User data 수정이 인스턴스 재부팅하는것 막기
-  #
-  # TODO: 향후엔 AWS EFS로 k3s DB파일을 백업해서, 인스턴스가 재부팅되거나
-  # 롤링업데이트 되어도 손쉽게 쿠버 상태를 복구할 수 있도록 하자. 그러면 이렇게
-  # ignore_changes를 걸 필요가 없다.
-  lifecycle {
-    ignore_changes = [user_data]
-  }
-}
-
-resource "aws_eip" "ebony" {
-  instance = aws_instance.ebony.id
-  vpc      = true
 }

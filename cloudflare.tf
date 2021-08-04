@@ -70,16 +70,6 @@ resource "cloudflare_record" "wiki" {
 }
 
 #
-# 에보니
-#
-resource "cloudflare_record" "ebony" {
-  zone_id = cloudflare_zone.upnl.id
-  name    = "ebony"
-  type    = "A"
-  value   = aws_eip.ebony.public_ip
-}
-
-#
 # mailgun
 #
 resource "cloudflare_record" "mailgun_mx_a" {
