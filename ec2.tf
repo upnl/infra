@@ -63,10 +63,6 @@ resource "aws_security_group_rule" "ebony_egress" {
   ipv6_cidr_blocks = ["::/0"]
 }
 
-resource "aws_key_pair" "sysadmin" {
-  public_key = file("res/upnl_rsa.pub")
-}
-
 resource "aws_ebs_volume" "ebs_data" {
   availability_zone = "ap-northeast-2c"
   size              = 256
