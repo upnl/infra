@@ -6,10 +6,9 @@ UPnL Infra
 
 ### Prerequisites
 - Terraform 1.x
-- [Terraform Cloud] 계정
-- AWS 크레덴셜
-- [Cloudflare Global API Key](https://dash.cloudflare.com/profile/api-tokens)
-  (`CLOUDFLARE_EMAIL`, `CLOUDFLARE_API_KEY`)
+- [Terraform Cloud] account
+- AWS credentials
+- [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)
 
 ### Instructions
 ```bash
@@ -19,6 +18,9 @@ UPnL Infra
 #     credentials "app.terraform.io" {
 #       token = "xxxxxxxxxxxxxx.atlasv1.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 #     }
+
+# Set Cloudflare API token, See https://dash.cloudflare.com/profile/api-tokens
+cp -i terraform.tfvars.example terraform.tfvars
 
 terraform init
 
