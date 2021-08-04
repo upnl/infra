@@ -1,11 +1,11 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = ">= 3.22.0, <4"
     }
     cloudflare = {
-      source = "cloudflare/cloudflare"
+      source  = "cloudflare/cloudflare"
       version = ">= 2.14.0, <3"
     }
   }
@@ -21,10 +21,10 @@ terraform {
 }
 
 provider "aws" {
-  region    = "ap-northeast-2"
+  region = "ap-northeast-2"
 }
 
 provider "cloudflare" {
   account_id = "5438816c5f1953ae97aa91863ba3d596"
-  api_token = var.cloudflare_api_token
+  api_token  = var.cloudflare_api_token
 }
