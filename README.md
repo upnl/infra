@@ -5,7 +5,7 @@ UPnL Infra
 유피넬의 AWS와 클라우드 플레어 인프라 상태가 정의되어있는 테라폼 코드입니다. 쿠버네티스 YAML 파일들은 [upnl/kubernetes](https://github.com/upnl/kubernetes)에서 확인하세요.
 
 ### Prerequisites
-- Terraform 0.12.6+
+- Terraform 1.x
 - [Terraform Cloud] 계정
 - AWS 크레덴셜
 - [Cloudflare Global API Key](https://dash.cloudflare.com/profile/api-tokens)
